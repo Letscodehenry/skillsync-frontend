@@ -1,33 +1,53 @@
-// import { useState } from "react";
-// import Login from "./pages/Login";
-// import Dashboard from "./pages/Dashboard"
-
-// function App() {
-//   const [isLoggedIn, setIsLoggedIn] = useState(
-//     !!localStorage.getItem("token")
-//   );
-
-//   const handleLogin = () => {
-//     setIsLoggedIn(True);
-//   };
-
-//   return isLoggedIn ? <Dashboard /> : <Login onLogin={handleLogin}/>;
-
-// }
-
-// export default App;
-
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Projects from "./pages/Projects";
+import Profile from "./pages/Profile";
+
+import ProtectedRoute from "./components/ProtectedRoute";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Dashboard />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/projects"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Projects />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Profile />
+              </MainLayout>
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
     </BrowserRouter>
   );
