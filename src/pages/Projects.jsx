@@ -94,6 +94,7 @@ export default function Projects() {
     }
     loadProjects();
   }, []);
+  
 
   const handleCreate = async (project) => {
     const API_URL = "http://127.0.0.1:8000";
