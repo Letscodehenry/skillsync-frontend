@@ -3,61 +3,106 @@ import "../styles/CreateProjectModal.css";
 
 export default function CreateProjectModal({ isOpen, onClose, onCreate }) {
   const [form, setForm] = useState({
-    name: "",
+    title: "",
     description: "",
-    status: "Active",
+    budget: "",
+    deadline: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   if (!isOpen) return null;
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onCreate(form);
-    setForm({ name: "", description: "", status: "Active" });
-    onClose();
+    setLoading(true);
+    setError(null);
+
+    try {
+      const payload = {
+        title: form.title,
+        description: form.description,
+        budget: parseFloat(form.budget),
+        deadline: form.deadline, // must be YYYY-MM-DD
+        status: "open",
+      };
+
+      console.log("Submitting project:", payload);
+
+      await onCreate(payload);
+
+      // reset form
+      setForm({
+        title: "",
+        description: "",
+        budget: "",
+        deadline: "",
+      });
+
+      onClose();
+    } catch (err) {
+      setError("Failed to create project");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="modal-overlay">
-      <div className="modal-card">
+      <div className="modal">
         <h2>Create Project</h2>
+
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
         <form onSubmit={handleSubmit}>
           <input
-            name="name"
-            placeholder="Project name"
-            value={form.name}
+            name="title"
+            placeholder="Project title"
+            value={form.title}
             onChange={handleChange}
             required
           />
 
           <textarea
             name="description"
-            placeholder="Description"
+            placeholder="Project description"
             value={form.description}
             onChange={handleChange}
+            required
           />
 
-          <select
-            name="status"
-            value={form.status}
+          <input
+            name="budget"
+            type="number"
+            placeholder="Budget"
+            value={form.budget}
             onChange={handleChange}
-          >
-            <option>Active</option>
-            <option>Pending</option>
-            <option>Completed</option>
-          </select>
+            required
+          />
 
-          <div className="modal-actions">
-            <button type="button" onClick={onClose} className="cancel-btn">
-              Cancel
+          <input
+            name="deadline"
+            type="date"
+            value={form.deadline}
+            onChange={handleChange}
+            required
+          />
+
+          <div style={{ marginTop: 10 }}>
+            <button type="submit" disabled={loading}>
+              {loading ? "Creating..." : "Create"}
             </button>
-            <button type="submit" className="create-btn">
-              Create
+
+            <button type="button" onClick={onClose} style={{ marginLeft: 10 }}>
+              Cancel
             </button>
           </div>
         </form>

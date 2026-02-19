@@ -107,12 +107,15 @@ export default function Projects() {
         },
         body: JSON.stringify(project),
       });
+      
+        const data = await response.json();
 
       if (!response.ok) {
-        throw new Error("Failed to create project");
-      }
+      console.error("Backend error response:", data);
+      throw new Error("Failed to create project");
+    }
 
-      const data = await response.json();
+
       console.log("Project created:", data);
 
       // update table after create
