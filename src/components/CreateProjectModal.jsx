@@ -8,7 +8,7 @@ export default function CreateProjectModal({ isOpen, onClose, onCreate }) {
     budget: "",
     deadline: "",
   });
-
+ 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 

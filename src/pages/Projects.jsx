@@ -1,87 +1,7 @@
-// import { useEffect, useState } from "react";
-// import { fetchProjects } from "../services/api";
-// import "../styles/Projects.css";
-
-// export default function Projects() {
-//   const [projects, setProjects] = useState(null);
-
-//   useEffect(() => {
-//     async function loadProjects() {
-//       try {
-//         const data = await fetchProjects();
-//         setProjects(data);
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     }
-
-//     loadProjects();
-//   }, []);
-
-//   if (!projects) return <p>Loading projects...</p>;
-
-//   if (projects.length === 0) return <p>No projects yet.</p>;
-
-//   return (
-//     <div className="projects-container">
-//       <h1>Projects</h1>
-
-//       <table className="projects-table">
-//         <thead>
-//           <tr>
-//             <th>Title</th>
-//             <th>Description</th>
-//             <th>Status</th>
-//             <th>Owner</th>
-//           </tr>
-//         </thead>
-
-//         <tbody>
-//           {projects.map(project => (
-//             <tr key={project.id}>
-//               <td>{project.title}</td>
-//               <td>{project.description}</td>
-//               <td>{project.status}</td>
-//               <td>{project.owner}</td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// }
-
-// import { useState } from "react";
-// import CreateProjectModal from "../components/CreateProjectModal";
-
-// export default function Projects() {
-//   const API_URL = "http://127.0.0.1:8000";
-
-//   await fetch(`${API_URL}/api/projects/`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${localStorage.getItem("access")}`,
-//     },
-//     body: JSON.stringify(project),
-//   });
-
-//   return (
-//     <>
-//       <button onClick={() => setOpen(true)}>+ New Project</button>
-
-//       <CreateProjectModal
-//         isOpen={open}
-//         onClose={() => setOpen(false)}
-//         onCreate={handleCreate}
-//       />
-//     </>
-//   );
-// }
-
 import { useState, useEffect } from "react";
 import CreateProjectModal from "../components/CreateProjectModal";
 import { fetchProjects } from "../services/api";
+import "../styles/Projects.css";
 
 export default function Projects() {
   const [open, setOpen] = useState(false);
@@ -146,7 +66,8 @@ export default function Projects() {
                 <th>Title</th>
                 <th>Description</th>
                 <th>Status</th>
-                <th>Owner</th>
+                <th>Budget</th>
+                <th>Deadline</th>
               </tr>
             </thead>
             <tbody>
@@ -155,7 +76,8 @@ export default function Projects() {
                   <td>{p.title}</td>
                   <td>{p.description}</td>
                   <td>{p.status}</td>
-                  <td>{p.owner}</td>
+                  <td>{p.budget}</td>
+                  <td>{p.deadline}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,29 +1,103 @@
+/* Main container */
 .projects-container {
-  background: #1f2937;
-  padding: 20px;
-  border-radius: 10px;
+  background: #111827;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: #f9fafb;
 }
 
+/* Header */
 .projects-container h1 {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
+/* Table wrapper (scroll if many projects) */
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 12px;
+}
+
+/* Table */
 .projects-table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 800px;
 }
 
-.projects-table th,
-.projects-table td {
-  padding: 12px;
-  border-bottom: 1px solid #374151;
-  text-align: left;
-}
-
+/* Table header */
 .projects-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   color: #9ca3af;
+  background: #1f2937;
+  position: sticky;
+  top: 0;
 }
 
+/* Table body cells */
+.projects-table td {
+  padding: 16px;
+  border-bottom: 1px solid #374151;
+  font-size: 0.95rem;
+}
+
+/* Row hover */
 .projects-table tr:hover {
-  background: #374151;
+  background: #1e293b;
+  transition: background 0.2s ease;
+}
+
+/* Status badge */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Status colors */
+.status-open {
+  background: #065f46;
+  color: #34d399;
+}
+
+.status-in_progress {
+  background: #1e3a8a;
+  color: #60a5fa;
+}
+
+.status-closed {
+  background: #7f1d1d;
+  color: #f87171;
+}
+
+/* Budget highlight */
+.budget {
+  font-weight: 600;
+  color: #22d3ee;
+}
+
+/* Action button */
+.view-btn {
+  background: #2563eb;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
 }
